@@ -873,6 +873,48 @@ function _possibleConstructorReturn(self, call) {
   return _assertThisInitialized(self);
 }
 
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    return;
+  }
+
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+}
+
 function isWindow(obj) {
   return obj != null && obj === obj.window;
 }
@@ -944,6 +986,7 @@ function (_PureComponent) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Sticky)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
+      isEnableSticky: false,
       targetHeight: Infinity,
       innerPosition: "static",
       containerMeasure: {},
@@ -962,29 +1005,42 @@ function (_PureComponent) {
       return _this._container ? _this._container.closest(containerSelectorFocus) : null;
     });
 
+    _defineProperty(_assertThisInitialized(_this), "_handleWindowResize", function () {
+      var stickyEnableRange = _this.props.stickyEnableRange;
+
+      var _stickyEnableRange = _slicedToArray(stickyEnableRange, 2),
+          min = _stickyEnableRange[0],
+          max = _stickyEnableRange[1];
+
+      _this.setState({
+        isEnableSticky: window.innerWidth >= min && window.innerWidth <= max
+      });
+    });
+
     _defineProperty(_assertThisInitialized(_this), "_handleWindowScroll",
     /*#__PURE__*/
     _asyncToGenerator(
     /*#__PURE__*/
     regenerator.mark(function _callee() {
-      var $containerSelectorFocus, _window, windowHeight, innerHeight, containerMeasure, targetHeight;
+      var isEnableSticky, $containerSelectorFocus, _window, windowHeight, innerHeight, containerMeasure, targetHeight;
 
       return regenerator.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              isEnableSticky = _this.state.isEnableSticky;
               $containerSelectorFocus = _this._getContainerSelectorFocus();
               _window = window, windowHeight = _window.innerHeight;
 
-              if (!(_this._container && _this._inner)) {
-                _context.next = 9;
+              if (!(_this._container && _this._inner && isEnableSticky)) {
+                _context.next = 10;
                 break;
               }
 
               innerHeight = _this._inner.clientHeight;
               containerMeasure = _this._container.getBoundingClientRect();
               targetHeight = $containerSelectorFocus ? $containerSelectorFocus.clientHeight : Infinity;
-              _context.next = 8;
+              _context.next = 9;
               return _this.setState({
                 containerMeasure: {
                   top: containerMeasure.top,
@@ -996,14 +1052,14 @@ function (_PureComponent) {
                 isLong: innerHeight > windowHeight
               });
 
-            case 8:
+            case 9:
               if (innerHeight > windowHeight) {
                 _this._handleLong();
               } else {
                 _this._handleShort();
               }
 
-            case 9:
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -1312,22 +1368,28 @@ function (_PureComponent) {
     key: "componentDidMount",
     value: function componentDidMount() {
       window.addEventListener("scroll", this._handleWindowScroll);
+
+      this._handleWindowResize();
+
+      window.addEventListener("resize", this._handleWindowResize);
     }
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
       window.removeEventListener("scroll", this._handleWindowScroll);
+      window.removeEventListener("resize", this._handleWindowResize);
     }
   }, {
     key: "render",
     value: function render() {
       var children = this.props.children;
+      var isEnableSticky = this.state.isEnableSticky;
       return React__default.createElement("div", {
         ref: this._setContainerRef,
-        style: this._getContainerStyle()
+        style: isEnableSticky ? this._getContainerStyle() : {}
       }, React__default.createElement("div", {
         ref: this._setInnerRef,
-        style: this._getInnerStyle()
+        style: isEnableSticky ? this._getInnerStyle() : {}
       }, this._renderHackGetHeightWhenInnerContentMargin(), children, this._renderHackGetHeightWhenInnerContentMargin()));
     }
   }]);
@@ -1338,7 +1400,8 @@ function (_PureComponent) {
 _defineProperty(Sticky, "defaultProps", {
   offsetTop: 0,
   containerSelectorFocus: "body",
-  zIndex: 10
+  zIndex: 10,
+  stickyEnableRange: [0, Infinity]
 });
 
 module.exports = Sticky;

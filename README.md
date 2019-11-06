@@ -44,3 +44,4 @@ class BasicSticky extends React.Component {
 | containerSelectorFocus   | `string`                     | -       | Move according to the parent component (value same `querySelector` vanilla javascript). Example [Sidebar sticky](https://6qzgv.codesandbox.io/)  |
 | offsetTop             | `number`                     | `0`       | Offset from the top of the viewport (in pixels) |
 | zIndex    | `number`      | `10`       | The `z-index` of the Sticky |
+| stickyEnableRange    | `Array<number>`      | `[0, Infinity]`       | Sticky working in [min-width, max-width]  |

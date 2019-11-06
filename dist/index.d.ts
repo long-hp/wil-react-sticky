@@ -4,6 +4,7 @@ declare module "wil-react-sticky" {
     offsetTop: number;
     containerSelectorFocus: string;
     zIndex: number;
+    stickyEnableRange: number[];
   }
 
   export interface State {

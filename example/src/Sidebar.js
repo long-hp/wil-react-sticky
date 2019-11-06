@@ -11,6 +11,7 @@ export default class Sidebar extends Component {
               <Sticky
                 containerSelectorFocus="#containerSelectorFocus"
                 offsetTop={20}
+                stickyEnableRange={[768, Infinity]}
               >
                 <div className="box">
                   <h3>Short Sidebar Sticky</h3>
@@ -114,6 +115,7 @@ export default class Sidebar extends Component {
               <Sticky
                 containerSelectorFocus="#containerSelectorFocus"
                 offsetTop={20}
+                stickyEnableRange={[768, Infinity]}
               >
                 <div className="box">
                   <h3>Long Sidebar Sticky</h3>

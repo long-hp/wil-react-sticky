@@ -20,6 +20,7 @@ export default class StickyBox2 extends Component {
               <Sticky
                 containerSelectorFocus="#containerSelectorFocus"
                 offsetTop={20}
+                stickyEnableRange={[768, Infinity]}
               >
                 <div className="box">
                   <h3>Short Box 2 Sticky</h3>
@@ -133,6 +134,7 @@ export default class StickyBox2 extends Component {
               <Sticky
                 containerSelectorFocus="#containerSelectorFocus"
                 offsetTop={20}
+                stickyEnableRange={[768, Infinity]}
               >
                 <div className="box">
                   <h3>Long Box 2 Sticky</h3>
