@@ -19,7 +19,8 @@ yarn add wil-react-sticky
 
 #### [1. Sidebar sticky](https://6qzgv.codesandbox.io/)
 #### [2. Sidebar sticky box 2](https://6qzgv.codesandbox.io/sticky-box2)
-#### [3. Header sticky](https://6qzgv.codesandbox.io/header-sticky)
+#### [3. Section list](https://6qzgv.codesandbox.io/section-list)
+#### [4. Header sticky](https://6qzgv.codesandbox.io/header-sticky)
 
 ```js
 import React from "react";
