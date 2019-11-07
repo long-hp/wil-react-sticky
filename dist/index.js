@@ -1000,6 +1000,8 @@ function (_PureComponent) {
 
     _defineProperty(_assertThisInitialized(_this), "_prevScrollY", void 0);
 
+    _defineProperty(_assertThisInitialized(_this), "_isPrevSticky", void 0);
+
     _defineProperty(_assertThisInitialized(_this), "_getContainerSelectorFocus", function () {
       var containerSelectorFocus = _this.props.containerSelectorFocus;
       return _this._container ? _this._container.closest(containerSelectorFocus) : null;
@@ -1022,25 +1024,27 @@ function (_PureComponent) {
     _asyncToGenerator(
     /*#__PURE__*/
     regenerator.mark(function _callee() {
-      var isEnableSticky, $containerSelectorFocus, _window, windowHeight, innerHeight, containerMeasure, targetHeight;
+      var onChange, isEnableSticky, isSticky, $containerSelectorFocus, _window, windowHeight, innerHeight, containerMeasure, targetHeight;
 
       return regenerator.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              onChange = _this.props.onChange;
               isEnableSticky = _this.state.isEnableSticky;
+              isSticky = _this._isSticky();
               $containerSelectorFocus = _this._getContainerSelectorFocus();
               _window = window, windowHeight = _window.innerHeight;
 
               if (!(_this._container && _this._inner && isEnableSticky)) {
-                _context.next = 10;
+                _context.next = 14;
                 break;
               }
 
               innerHeight = _this._inner.clientHeight;
               containerMeasure = _this._container.getBoundingClientRect();
               targetHeight = $containerSelectorFocus ? $containerSelectorFocus.clientHeight : Infinity;
-              _context.next = 9;
+              _context.next = 11;
               return _this.setState({
                 containerMeasure: {
                   top: containerMeasure.top,
@@ -1052,14 +1056,20 @@ function (_PureComponent) {
                 isLong: innerHeight > windowHeight
               });
 
-            case 9:
+            case 11:
               if (innerHeight > windowHeight) {
                 _this._handleLong();
               } else {
                 _this._handleShort();
               }
 
-            case 10:
+              if (_this._isPrevSticky !== isSticky) {
+                onChange(isSticky);
+              }
+
+              _this._isPrevSticky = isSticky;
+
+            case 14:
             case "end":
               return _context.stop();
           }
@@ -1344,6 +1354,11 @@ function (_PureComponent) {
       };
     });
 
+    _defineProperty(_assertThisInitialized(_this), "_isSticky", function () {
+      var innerPosition = _this.state.innerPosition;
+      return innerPosition.search(/fixedTop|fixedBottom/g) !== -1;
+    });
+
     _defineProperty(_assertThisInitialized(_this), "_setContainerRef", function (c) {
       _this._container = c;
     });
@@ -1384,13 +1399,16 @@ function (_PureComponent) {
     value: function render() {
       var children = this.props.children;
       var isEnableSticky = this.state.isEnableSticky;
+
+      var isSticky = this._isSticky();
+
       return React__default.createElement("div", {
         ref: this._setContainerRef,
         style: isEnableSticky ? this._getContainerStyle() : {}
       }, React__default.createElement("div", {
         ref: this._setInnerRef,
         style: isEnableSticky ? this._getInnerStyle() : {}
-      }, this._renderHackGetHeightWhenInnerContentMargin(), children, this._renderHackGetHeightWhenInnerContentMargin()));
+      }, this._renderHackGetHeightWhenInnerContentMargin(), typeof children === "function" ? children(isSticky) : children, this._renderHackGetHeightWhenInnerContentMargin()));
     }
   }]);
 
@@ -1401,7 +1419,8 @@ _defineProperty(Sticky, "defaultProps", {
   offsetTop: 0,
   containerSelectorFocus: "body",
   zIndex: 10,
-  stickyEnableRange: [0, Infinity]
+  stickyEnableRange: [0, Infinity],
+  onChange: function onChange(isSticky) {}
 });
 
 module.exports = Sticky;

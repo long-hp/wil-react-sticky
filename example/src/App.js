@@ -9,6 +9,8 @@ import {
 import Sidebar from "./Sidebar";
 import StickyBox2 from "./StickyBox2";
 import Header from "./Header";
+import SectionList from "./SectionList";
+import RenderPropsExample from "./RenderPropsExample";
 
 function NavLink({ children, to, activeOnlyWhenExact }) {
   let match = useRouteMatch({
@@ -42,7 +44,9 @@ export default class App extends Component {
                 Sidebar
               </NavLink>
               <NavLink to="/sticky-box2">Sticky Box 2</NavLink>
+              <NavLink to="/section-list">Section List</NavLink>
               <NavLink to="/header-sticky">Header Sticky</NavLink>
+              <NavLink to="/render-props">Render Props Example</NavLink>
             </nav>
           </div>
           <Switch>
@@ -54,6 +58,12 @@ export default class App extends Component {
             </Route>
             <Route path="/header-sticky">
               <Header />
+            </Route>
+            <Route path="/section-list">
+              <SectionList />
+            </Route>
+            <Route path="/render-props">
+              <RenderPropsExample />
             </Route>
           </Switch>
         </div>

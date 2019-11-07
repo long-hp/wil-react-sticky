@@ -1,10 +1,11 @@
 declare module "wil-react-sticky" {
   export interface Props {
-    children: React.ReactNode;
+    children: React.ReactNode | ((isSticky: boolean) => React.ReactNode);
     offsetTop: number;
     containerSelectorFocus: string;
     zIndex: number;
     stickyEnableRange: number[];
+    onChange(isSticky: boolean): void;
   }
 
   export interface State {
