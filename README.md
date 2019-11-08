@@ -21,7 +21,7 @@ yarn add wil-react-sticky
 #### [2. Sidebar sticky box 2](https://6qzgv.codesandbox.io/sticky-box2)
 #### [3. Section list](https://6qzgv.codesandbox.io/section-list)
 #### [4. Header sticky](https://6qzgv.codesandbox.io/header-sticky)
-#### [4. Render Props (demo change background color)](https://6qzgv.codesandbox.io/render-props)
+#### [5. Render Props (demo change background color)](https://6qzgv.codesandbox.io/render-props)
 
 ```js
 import React from "react";
