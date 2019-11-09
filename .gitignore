@@ -4,7 +4,6 @@
 node_modules
 
 # builds
-/src
 
 # misc
 .DS_Store
