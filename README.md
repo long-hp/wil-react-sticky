@@ -1,5 +1,5 @@
 # Wil React Sticky
-Sticky Component For Header, Sidebar ...
+Sticky Component For Header, Sidebar, Section list ...
 Useful when a sidebar is too tall or too short compared to the rest of the content.
 
 ### Installation
