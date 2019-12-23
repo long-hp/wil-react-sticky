@@ -3,7 +3,7 @@
 Sticky Component For Header, Sidebar, Section list, etc.
 Useful when a sidebar is too tall or too short compared to the rest of the content.
 
-[![NPM](https://img.shields.io/npm/v/wil-react-sticky.svg)](https://www.npmjs.com/package/wil-react-sticky) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/wil-react-sticky.svg)](https://www.npmjs.com/package/wil-react-sticky)
 
 ## Install
 
