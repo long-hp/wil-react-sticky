@@ -40,11 +40,9 @@ import Sticky from "wil-react-sticky";
 class BasicSticky extends React.Component {
   render() {
     return (
-      <div>
-        <Sticky>
-          <header className="header">Header sticky</header>
-        </Sticky>
-      </div>
+      <Sticky>
+        <header className="header">Header sticky</header>
+      </Sticky>
     )
   }
 ```
