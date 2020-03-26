@@ -122,30 +122,30 @@ var Sticky = /** @class */ (function (_super) {
             isLong: false,
             innerTop: 0,
         };
-        _this._getContainerSelectorFocus = function () {
+        _this.getContainerSelectorFocus = function () {
             var containerSelectorFocus = _this.props.containerSelectorFocus;
-            return _this._container.closest(containerSelectorFocus);
+            return _this.$container.closest(containerSelectorFocus);
         };
-        _this._handleWindowResize = function () {
+        _this.handleWindowResize = function () {
             var stickyEnableRange = _this.props.stickyEnableRange;
             var min = stickyEnableRange[0], max = stickyEnableRange[1];
             _this.setState({
                 isEnableSticky: window.innerWidth >= min && window.innerWidth <= max,
             });
         };
-        _this._handleWindowScroll = function () { return __awaiter(_this, void 0, void 0, function () {
+        _this.handleWindowScroll = function () { return __awaiter(_this, void 0, void 0, function () {
             var onChange, isEnableSticky, isSticky, $containerSelectorFocus, windowHeight, innerHeight_1, containerMeasure, targetHeight;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         onChange = this.props.onChange;
                         isEnableSticky = this.state.isEnableSticky;
-                        isSticky = this._checkSticky();
-                        $containerSelectorFocus = this._getContainerSelectorFocus();
+                        isSticky = this.checkSticky();
+                        $containerSelectorFocus = this.getContainerSelectorFocus();
                         windowHeight = window.innerHeight;
-                        if (!(this._container && this._inner && isEnableSticky)) return [3 /*break*/, 2];
-                        innerHeight_1 = this._inner.clientHeight;
-                        containerMeasure = this._container.getBoundingClientRect();
+                        if (!(this.$container && this.$inner && isEnableSticky)) return [3 /*break*/, 2];
+                        innerHeight_1 = this.$inner.clientHeight;
+                        containerMeasure = this.$container.getBoundingClientRect();
                         targetHeight = $containerSelectorFocus
                             ? $containerSelectorFocus.clientHeight
                             : Infinity;
@@ -162,70 +162,69 @@ var Sticky = /** @class */ (function (_super) {
                     case 1:
                         _a.sent();
                         if (innerHeight_1 > windowHeight) {
-                            this._handleLong();
+                            this.handleLong();
                         }
                         else {
-                            this._handleShort();
+                            this.handleShort();
                         }
-                        if (this._isPrevSticky !== isSticky) {
+                        if (this.isPrevSticky !== isSticky) {
                             onChange(isSticky);
                         }
-                        this._isPrevSticky = isSticky;
+                        this.isPrevSticky = isSticky;
                         _a.label = 2;
                     case 2: return [2 /*return*/];
                 }
             });
         }); };
-        _this._checkWrapBottom = function () {
+        _this.checkWrapBottom = function () {
             var offsetTop = _this.props.offsetTop;
-            var $containerSelectorFocus = _this._getContainerSelectorFocus();
+            var $containerSelectorFocus = _this.getContainerSelectorFocus();
             var _a = _this.state, containerMeasure = _a.containerMeasure, isLong = _a.isLong;
             var targetHeight = $containerSelectorFocus ? $containerSelectorFocus.clientHeight : Infinity;
             return (containerMeasure.top -
                 containerMeasure.height +
                 (isLong ? containerMeasure.height - window.innerHeight + offsetTop : 0) -
                 offsetTop <
-                targetHeight * -1 -
-                    (_this._getContainerSelectorFocusOffsetTop() - _this._getContainerOffsetTop()));
+                targetHeight * -1 - (_this.getContainerSelectorFocusOffsetTop() - _this.getContainerOffsetTop()));
         };
-        _this._handleLong = function () {
+        _this.handleLong = function () {
             var scrollY = window.scrollY;
-            if (_this._prevScrollY > scrollY) {
-                _this._handleLongScrollUp(scrollY);
+            if (_this.prevScrollY > scrollY) {
+                _this.handleLongScrollUp(scrollY);
             }
             else {
-                _this._handleLongScrollDown(scrollY);
+                _this.handleLongScrollDown(scrollY);
             }
-            _this._prevScrollY = scrollY;
+            _this.prevScrollY = scrollY;
         };
-        _this._getInnerTop = function () {
-            var innerMeasure = _this._inner.getBoundingClientRect();
+        _this.getInnerTop = function () {
+            var innerMeasure = _this.$inner.getBoundingClientRect();
             var innerTop = innerMeasure.top || -1;
             return innerTop;
         };
-        _this._getInnerOffsetTop = function () {
-            return offset(_this._inner).top;
+        _this.getInnerOffsetTop = function () {
+            return offset(_this.$inner).top;
         };
-        _this._getContainerOffsetTop = function () {
-            return offset(_this._container).top;
+        _this.getContainerOffsetTop = function () {
+            return offset(_this.$container).top;
         };
-        _this._getContainerSelectorFocusOffsetTop = function () {
-            var $containerSelectorFocus = _this._getContainerSelectorFocus();
+        _this.getContainerSelectorFocusOffsetTop = function () {
+            var $containerSelectorFocus = _this.getContainerSelectorFocus();
             return $containerSelectorFocus ? offset($containerSelectorFocus).top : 0;
         };
-        _this._getContainerSelectorFocusOffsetBottom = function () {
-            var $containerSelectorFocus = _this._getContainerSelectorFocus();
+        _this.getContainerSelectorFocusOffsetBottom = function () {
+            var $containerSelectorFocus = _this.getContainerSelectorFocus();
             return $containerSelectorFocus
                 ? Math.trunc(offset($containerSelectorFocus).top + $containerSelectorFocus.clientHeight)
                 : 0;
         };
-        _this._getInnerPositionTop = function () {
-            if (_this._container && _this._inner) {
-                return _this._getInnerOffsetTop() - _this._getContainerOffsetTop();
+        _this.getInnerPositionTop = function () {
+            if (_this.$container && _this.$inner) {
+                return _this.getInnerOffsetTop() - _this.getContainerOffsetTop();
             }
             return 0;
         };
-        _this._handleLongScrollUp = function (scrollY) { return __awaiter(_this, void 0, void 0, function () {
+        _this.handleLongScrollUp = function (scrollY) { return __awaiter(_this, void 0, void 0, function () {
             var offsetTop, _a, containerMeasure, innerPosition, isTop, innerTop;
             return __generator(this, function (_b) {
                 switch (_b.label) {
@@ -233,7 +232,7 @@ var Sticky = /** @class */ (function (_super) {
                         offsetTop = this.props.offsetTop;
                         _a = this.state, containerMeasure = _a.containerMeasure, innerPosition = _a.innerPosition;
                         isTop = containerMeasure.top > offsetTop;
-                        innerTop = this._getInnerTop();
+                        innerTop = this.getInnerTop();
                         if (!isTop) return [3 /*break*/, 1];
                         this.setState({
                             innerPosition: 'static',
@@ -243,7 +242,7 @@ var Sticky = /** @class */ (function (_super) {
                         if (!(containerMeasure.top <= innerTop &&
                             (innerPosition === 'fixedBottom' ||
                                 (innerPosition === 'absoluteBottom' &&
-                                    scrollY + window.innerHeight <= this._getContainerSelectorFocusOffsetBottom())))) return [3 /*break*/, 3];
+                                    scrollY + window.innerHeight <= this.getContainerSelectorFocusOffsetBottom())))) return [3 /*break*/, 3];
                         return [4 /*yield*/, this.setState({
                                 innerPosition: 'absoluteCenter',
                             })];
@@ -251,18 +250,18 @@ var Sticky = /** @class */ (function (_super) {
                         _b.sent();
                         _b.label = 3;
                     case 3:
-                        this._setInnerPositionFixedTop();
+                        this.setInnerPositionFixedTop();
                         _b.label = 4;
                     case 4: return [2 /*return*/];
                 }
             });
         }); };
-        _this._setInnerPositionFixedTop = function () {
+        _this.setInnerPositionFixedTop = function () {
             var offsetTop = _this.props.offsetTop;
             var innerPosition = _this.state.innerPosition;
-            var innerTop = _this._getInnerTop();
+            var innerTop = _this.getInnerTop();
             _this.setState({
-                innerTop: _this._getInnerPositionTop(),
+                innerTop: _this.getInnerPositionTop(),
             });
             if (innerTop >= offsetTop && innerPosition === 'absoluteCenter') {
                 _this.setState({
@@ -270,11 +269,11 @@ var Sticky = /** @class */ (function (_super) {
                 });
             }
         };
-        _this._handleLongScrollDown = function (scrollY) {
+        _this.handleLongScrollDown = function (scrollY) {
             var _a = _this.state, containerMeasure = _a.containerMeasure, innerPosition = _a.innerPosition;
             var isBottom = Math.trunc(scrollY + window.innerHeight) >=
-                Math.trunc(_this._getInnerOffsetTop() + containerMeasure.height);
-            var isWrapBottom = _this._checkWrapBottom();
+                Math.trunc(_this.getInnerOffsetTop() + containerMeasure.height);
+            var isWrapBottom = _this.checkWrapBottom();
             if (innerPosition === 'fixedTop') {
                 _this.setState({
                     innerPosition: 'absoluteCenter',
@@ -288,32 +287,32 @@ var Sticky = /** @class */ (function (_super) {
             else if (isBottom) {
                 _this.setState({
                     innerPosition: 'fixedBottom',
-                    innerTop: _this._getInnerPositionTop(),
+                    innerTop: _this.getInnerPositionTop(),
                 });
             }
         };
-        _this._getShortPosition = function (containerMeasure) {
+        _this.getShortPosition = function (containerMeasure) {
             var offsetTop = _this.props.offsetTop;
             if (containerMeasure.top <= offsetTop) {
-                if (_this._checkWrapBottom()) {
+                if (_this.checkWrapBottom()) {
                     return 'absoluteBottom';
                 }
                 return 'fixedTop';
             }
             return 'static';
         };
-        _this._handleShort = function () {
+        _this.handleShort = function () {
             var containerMeasure = _this.state.containerMeasure;
             _this.setState({
-                innerPosition: _this._getShortPosition(containerMeasure),
+                innerPosition: _this.getShortPosition(containerMeasure),
             });
         };
-        _this._getInnerStyle = function () {
+        _this.getInnerStyle = function () {
             var _a = _this.props, offsetTop = _a.offsetTop, zIndex = _a.zIndex;
             var _b = _this.state, targetHeight = _b.targetHeight, innerPosition = _b.innerPosition, containerMeasure = _b.containerMeasure, isLong = _b.isLong, innerTop = _b.innerTop;
             var topForAbsoluteBottom = targetHeight -
                 containerMeasure.height +
-                (_this._getContainerSelectorFocusOffsetTop() - _this._getContainerOffsetTop());
+                (_this.getContainerSelectorFocusOffsetTop() - _this.getContainerOffsetTop());
             if (isLong) {
                 switch (innerPosition) {
                     case 'static':
@@ -371,7 +370,7 @@ var Sticky = /** @class */ (function (_super) {
                     return {};
             }
         };
-        _this._getContainerStyle = function () {
+        _this.getContainerStyle = function () {
             var _a = _this.state, innerPosition = _a.innerPosition, containerMeasure = _a.containerMeasure;
             if (innerPosition === 'static') {
                 return {
@@ -383,44 +382,44 @@ var Sticky = /** @class */ (function (_super) {
                 minHeight: containerMeasure.height,
             };
         };
-        _this._checkSticky = function () {
+        _this.checkSticky = function () {
             var innerPosition = _this.state.innerPosition;
             return innerPosition.search(/fixedTop|fixedBottom/g) !== -1;
         };
-        _this._setContainerRef = function (c) {
-            _this._container = c;
+        _this.setContainerRef = function (c) {
+            _this.$container = c;
         };
-        _this._setInnerRef = function (c) {
-            _this._inner = c;
+        _this.setInnerRef = function (c) {
+            _this.$inner = c;
         };
-        _this._renderHackGetHeightWhenInnerContentMargin = function () {
+        _this.renderHackGetHeightWhenInnerContentMargin = function () {
             return React.createElement("div", { style: { fontSize: 0, visibility: 'hidden' } }, ".");
         };
-        _this._renderChildren = function () {
+        _this.renderChildren = function () {
             var children = _this.props.children;
-            var isSticky = _this._checkSticky();
+            var isSticky = _this.checkSticky();
             return typeof children === 'function' ? children(isSticky) : children;
         };
         return _this;
     }
     Sticky.prototype.componentDidMount = function () {
-        window.addEventListener('scroll', this._handleWindowScroll);
-        this._handleWindowResize();
-        window.addEventListener('resize', this._handleWindowResize);
+        window.addEventListener('scroll', this.handleWindowScroll);
+        this.handleWindowResize();
+        window.addEventListener('resize', this.handleWindowResize);
     };
     Sticky.prototype.componentWillUnmount = function () {
-        window.removeEventListener('scroll', this._handleWindowScroll);
-        window.removeEventListener('resize', this._handleWindowResize);
+        window.removeEventListener('scroll', this.handleWindowScroll);
+        window.removeEventListener('resize', this.handleWindowResize);
     };
     Sticky.prototype.render = function () {
         var isEnableSticky = this.state.isEnableSticky;
-        var containerStyle = isEnableSticky ? this._getContainerStyle() : {};
-        var innerStyle = isEnableSticky ? this._getInnerStyle() : {};
-        return (React.createElement("div", { ref: this._setContainerRef, style: containerStyle },
-            React.createElement("div", { ref: this._setInnerRef, style: innerStyle },
-                this._renderHackGetHeightWhenInnerContentMargin(),
-                this._renderChildren(),
-                this._renderHackGetHeightWhenInnerContentMargin())));
+        var containerStyle = isEnableSticky ? this.getContainerStyle() : {};
+        var innerStyle = isEnableSticky ? this.getInnerStyle() : {};
+        return (React.createElement("div", { ref: this.setContainerRef, style: containerStyle },
+            React.createElement("div", { ref: this.setInnerRef, style: innerStyle },
+                this.renderHackGetHeightWhenInnerContentMargin(),
+                this.renderChildren(),
+                this.renderHackGetHeightWhenInnerContentMargin())));
     };
     Sticky.defaultProps = {
         offsetTop: 0,
