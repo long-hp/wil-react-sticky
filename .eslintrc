@@ -85,6 +85,7 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
 
+    "@typescript-eslint/prefer-readonly": "off",
     "@typescript-eslint/prefer-optional-chain": "error",
     "@typescript-eslint/member-ordering": "off",
     "@typescript-eslint/no-require-imports": "off",
